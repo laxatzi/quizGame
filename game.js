@@ -45,7 +45,7 @@
           element.style.display = "block";
         }
       
-        // Event listeners
+    // Event listeners
         $start.addEventListener('click', function() { play(quizGame); } , false);
       
         // hide the form at the start of the game

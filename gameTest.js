@@ -72,7 +72,7 @@
       // A main function that contains all the steps of playing the game
     function play(quiz) { // we insert the quiz arr as an argument
        let score = 0; // initialize score
-       update($score,score); // display score into header
+       update($score,"Score: "+score); // display score into header
        // initialize time and set up an interval that counts down every second
        let time = 20;
       //update time element by displaying remaining time
@@ -101,7 +101,7 @@
          // random is used to select a number between 1 and the length of this ,yet to asked questions, array.
          questionCurrent = questions[random(questions.length) - 1];
          ask(questionCurrent);
-       }
+       } // end choose question
        
        function ask(questionCurrent) {
          console.log("ask() invoked");
@@ -145,7 +145,7 @@
          update($feedback,"Correct!","correct");
         // increase score by 1
            score++;
-           update($score,score);
+           update($score,"Score: "+score);
          } else {
            update($feedback,"Wrong!","wrong");// add a 3rd arg to style as we wish
          }
