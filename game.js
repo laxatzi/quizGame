@@ -1,11 +1,7 @@
-(function() {
-   // Wrapping all the code inside an immediately invoked function
-   // now all variables are wrapped up within the scope of THIS anonymous function. So if this file is used in conjunction with another javascript file, there will be no problems with same name variables (name pollution)
-   
-   // strict mode ensures errors will be thrown rather than failing silently
-      "use strict";
+{
+   "use strict";
      
-        var quizGame = {
+        const quizGame = {
         "name":"Super Hero Name Quiz",
         "description":"How many super heroes can you name?",
         "questionCore":"What is the real name of ",
@@ -22,18 +18,18 @@
         };// end of obj
       
         //// views ////
-        var $question = document.getElementById("question");
-        var $score = document.getElementById("score");
-        var $feedback = document.getElementById("feedback");
-        var $start = document.getElementById("start");
-        var $form = document.getElementById("answer");
-        var $timer = document.getElementById("timer");
-        var $reloader = document.getElementById("reload");
+        const $question = document.getElementById("question");
+        const $score = document.getElementById("score");
+        const $feedback = document.getElementById("feedback");
+        const $start = document.getElementById("start");
+        const $form = document.getElementById("answer");
+        const $timer = document.getElementById("timer");
+        const $reloader = document.getElementById("reload");
    
         /// view functions ///
       
         function update(element,content,klass) {
-          var p = element.firstChild || document.createElement("p");
+          const p = element.firstChild || document.createElement("p");
           p.textContent = content;
           element.appendChild(p);
           if(klass) {
@@ -68,7 +64,7 @@
             // if only one argument is supplied, assume the lower limit is 1
               b = a, a = 1;
             } 
-          var result = Math.floor((b-a+1) * Math.random()) + a;
+          let result = Math.floor((b-a+1) * Math.random()) + a;
           if(typeof callback === "function") {
             result = callback(result);
           }
@@ -77,14 +73,14 @@
    
          // A main function that contains all the steps of playing the game
        function play(quizGame){ // we insert the quiz arr as an argument
-          var score = 0; // initialize score
+          let score = 0; // initialize score
           update($score,score); // display score into header
           // initialize time and set up an interval that counts down every second
-          var time = 20;
+          let time = 20;
          //update time element by displaying remaining time
           update($timer,time);
           //The setInterval() method calls a function or evaluates an expression at specified intervals (in milliseconds). Syntax: (function, ms, params...); The clearInterval() method cancels the periodic execution of the function
-          var interval = window.setInterval( countDown , 1000 );
+          let interval = window.setInterval( countDown , 1000 );
           // hide button and show form
           hide($start);
           show($form);
@@ -94,13 +90,13 @@
             check(event.target.value);
             }, false);
    
-          var questionCurrent; // current question
+          let questionCurrent; // current question
           chooseQuestion();
       
      // nested functions
           function chooseQuestion() {
             console.log("chooseQuestion() invoked");
-            var questions = quizGame.questions.filter(function(question){
+            const questions = quizGame.questions.filter(function(question){
               return question.asked === false;//return array containing only questions that haven't been asked yet
             });
             // set the current question
@@ -116,11 +112,11 @@
             update($question,quizGame.questionCore + questionCurrent.question + "?");
             // clear the previous options(answers)
             $form.innerHTML = "";
-            // create an array to put the different options in and a button variable
-            var options = [], button;
-            var option1 = chooseOption();
+            // create an array to put the different options in and a button constiable
+            const options = [], button;
+            const option1 = chooseOption();
             options.push(option1.answer);
-            var option2 = chooseOption();
+            const option2 = chooseOption();
             options.push(option2.answer);
             // add the actual answer at a random place in the options array
             options.splice(random(0,2),0,questionCurrent.answer);
@@ -134,7 +130,7 @@
             
             // choose an option from all the possible answers but without choosing the answer or the same option twice
             function chooseOption() {
-              var option = quizGame.questions[random(quizGame.questions.length) - 1];
+              const option = quizGame.questions[random(quizGame.questions.length) - 1];
               // check to see if right option doesn't exist or if it does exist it appears already (more than once)
               if(option === questionCurrent || options.indexOf(option.answer) !== -1) {
                 return chooseOption();
@@ -180,5 +176,5 @@
           }
         } // end of play
    
-      }())// Wrapping all the code inside an immediately invoked function
+      }// Wrapping all the code inside an immediately invoked function
    
