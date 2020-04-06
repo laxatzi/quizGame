@@ -6,14 +6,14 @@
         "description":"How many super heroes can you name?",
         "questionCore":"What is the real name of ",
         "questions": [
-        { "question": "Superman", "answer": "Clarke Kent", "asked": false },
-        { "question": "Batman", "answer": "Bruce Wayne", "asked": false },
-        { "question": "Wonder Woman", "answer": "Dianna Prince", "asked": false },
-        { "question": "Spider-man", "answer": "Peter Parker", "asked": false },
-        { "question": "Iron-man", "answer": "Tony Stark", "asked": false },
-        {"question": "Captain-America", "answer": "Steve Rogers", "asked": false},
-        {"question": "Black Panther", "answer" : "T'Chaka", "asked": false},
-        {"question": "Thor", "answer": "Donald Blake", "asked": false}
+          { "question": "Superman", "answer": "Clarke Kent", "asked": false },
+          { "question": "Batman", "answer": "Bruce Wayne", "asked": false },
+          { "question": "Wonder Woman", "answer": "Dianna Prince", "asked": false },
+          { "question": "Spider-man", "answer": "Peter Parker", "asked": false },
+          { "question": "Iron-man", "answer": "Tony Stark", "asked": false },
+          {"question": "Captain-America", "answer": "Steve Rogers", "asked": false},
+          {"question": "Black Panther", "answer" : "T'Chaka", "asked": false},
+          {"question": "Thor", "answer": "Donald Blake", "asked": false}
         ]
         };// end of obj
       
@@ -173,7 +173,8 @@
          // remove the interval (countdown) when game has finished (otherwise it will continue counting down ad infinitum)
             window.clearInterval(interval);
             show($reloader);
-          }
+          }// end gameOver
+
         } // end of play
    
       }// Wrapping all the code inside an immediately invoked function

@@ -1,4 +1,4 @@
-{
+(function(){
    "use strict";
   
      const quiz = {
@@ -6,16 +6,16 @@
      "description":"How many super heroes can you name?",
      "questionCore":"What is the real name of ",
      "questions": [
-     { "question": "Superman", "answer": "Clarke Kent", "asked": false },
-     { "question": "Batman", "answer": "Bruce Wayne", "asked": false },
-     { "question": "Wonder Woman", "answer": "Dianna Prince", "asked": false },
-     { "question": "Spider-man", "answer": "Peter Parker", "asked": false },
-     { "question": "Iron-man", "answer": "Tony Stark", "asked": false },
-     {"question": "Captain-America", "answer": "Steve Rogers", "asked": false},
-     {"question": "Black Panther", "answer" : "T'Chaka", "asked": false},
-     {"question": "Thor", "answer": "Donald Blake", "asked": false}
+      { "question": "Superman", "answer": "Clarke Kent", "asked": false },
+      { "question": "Batman", "answer": "Bruce Wayne", "asked": false },
+      { "question": "Wonder Woman", "answer": "Dianna Prince", "asked": false },
+      { "question": "Spider-man", "answer": "Peter Parker", "asked": false },
+      { "question": "Iron-man", "answer": "Tony Stark", "asked": false },
+      {"question": "Captain-America", "answer": "Steve Rogers", "asked": false},
+      {"question": "Black Panther", "answer" : "T'Chaka", "asked": false},
+      {"question": "Thor", "answer": "Donald Blake", "asked": false}
      ]
-     }// end of quiz obj
+     };// end of quiz obj
    
      //// views ////
      const $question = document.getElementById("question");
@@ -35,44 +35,42 @@
        if(klass) {
          p.className = klass;
        }
-     }
+     }// end update
    
-     function hide(element) {
+     function hide(element){
        element.style.display = "none";
-     }
-   
+     } // end hide
+
      function show(element) {
-       element.style.display = "block";
-     }
+        element.style.display = "block";
+      } // end show
    
      // Event listeners
-     $start.addEventListener('click', function() { play(quiz) } , false); // third arg is useCapture parameter for preventing event capturing on older browsers
+     $start.addEventListener('click',  function(){ play(quiz)} , false); // third arg is useCapture parameter for preventing event capturing on older browsers
    
      // hide the form at the start of the game
      hide($form);
      // hide the reload button before the game is over
      hide($reloader);
      //add event listener for reloading page when clicking again button
-    $reloader.addEventListener('click', function(){
-      location.reload(); // native method for reloading the current document
-   })
-
-     //// function definitions ////
+    $reloader.addEventListener('click', function(){ location.reload();}); // native method for reloading the current document
+   
+    //// function definitions ////
 
      function random(a,b,callback) {
        if(b===undefined) {
          // if only one argument is supplied, assume the lower limit is 1
            b = a, a = 1;
          } 
-       const result = Math.floor((b-a+1) * Math.random()) + a;
+       let result = Math.floor((b-a+1) * Math.random()) + a;
        if(typeof callback === "function") {
          result = callback(result);
        }
        return result;
-     }
+     } // end random
 
       // A main function that contains all the steps of playing the game
-    function play(quiz){ // we insert the quiz arr as an argument
+    function play(quiz) { // we insert the quiz arr as an argument
        let score = 0; // initialize score
        update($score,score); // display score into header
        // initialize time and set up an interval that counts down every second
@@ -80,21 +78,21 @@
       //update time element by displaying remaining time
        update($timer,time);
        //The setInterval() method calls a function or evaluates an expression at specified intervals (in milliseconds). Syntax: (function, ms, params...); The clearInterval() method cancels the periodic execution of the function
-       const interval = window.setInterval( countDown , 1000 );
+       let interval = window.setInterval( countDown , 1000 );
        // hide button and show form
        hide($start);
        show($form);
        // add event listener to form for when it's submitted
-       $form.addEventListener('click', function(event) { 
+       $form.addEventListener('click', (event)=> { 
          event.preventDefault();
          check(event.target.value);
          }, false);
 
-       const questionCurrent; // current question
+       let questionCurrent; // current question
        chooseQuestion();
    
   // nested functions
-       function chooseQuestion() {
+       function chooseQuestion(){
          console.log("chooseQuestion() invoked");
          const questions = quiz.questions.filter(function(question){
            return question.asked === false;//return array containing only questions that haven't been asked yet
@@ -113,7 +111,8 @@
          // clear the previous options(answers)
          $form.innerHTML = "";
          // create an array to put the different options in and a button variable
-         const options = [], button;
+         let options = [], button;
+         
          const option1 = chooseOption();
          options.push(option1.answer);
          const option2 = chooseOption();
@@ -121,7 +120,7 @@
          // add the actual answer at a random place in the options array
          options.splice(random(0,2),0,questionCurrent.answer);
          // loop through each option and display it as a button
-         options.forEach(function(name) {
+         options.forEach((name)=> {
            button = document.createElement("button");
            button.value = name;
            button.textContent = name;
@@ -146,7 +145,7 @@
          update($feedback,"Correct!","correct");
         // increase score by 1
            score++;
-           update($score,score)
+           update($score,score);
          } else {
            update($feedback,"Wrong!","wrong");// add a 3rd arg to style as we wish
          }
@@ -165,16 +164,16 @@
          }
        }
    
-       function gameOver(){
+       function gameOver() {
          console.log("gameOver() invoked");
          // inform the player that the game has finished and tell them how many points they have scored
          update($question,"Game Over, you scored " + score + " points out of 8!");
          hide($form);
-         hide($feedback)
+         hide($feedback);
       // remove the interval (countdown) when game has finished (otherwise it will continue counting down ad infinitum)
          window.clearInterval(interval);
          show($reloader);
        }
      } // end of play
 
-    }// Wrapping all the code inside an immediately invoked function
+    }());//end wrapper iife
