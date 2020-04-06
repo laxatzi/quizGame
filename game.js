@@ -1,4 +1,4 @@
-{
+(function(){
    "use strict";
      
         const quizGame = {
@@ -113,7 +113,7 @@
             // clear the previous options(answers)
             $form.innerHTML = "";
             // create an array to put the different options in and a button constiable
-            const options = [], button;
+            let options = [], button;
             const option1 = chooseOption();
             options.push(option1.answer);
             const option2 = chooseOption();
@@ -177,5 +177,5 @@
 
         } // end of play
    
-      }// Wrapping all the code inside an immediately invoked function
+      }());//end wrapper iife // Wrapping all the code inside an immediately invoked function
    
